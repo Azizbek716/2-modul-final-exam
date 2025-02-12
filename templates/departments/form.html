@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+
+{% block title %} {% if department %} School CRM - Update Department {% else %} School CRM - Add Department {% endif %}{% endblock %}
+
+
+{% block content %}
+<div class="max-w-2xl mx-auto">
+    <div class="mb-8 flex items-center justify-between">
+        <h1 class="text-2xl font-bold">{% if department %} Update Department {% else %} Add Department {% endif %}</h1>
+        <a href="{% url 'departments:depart_list' %}" class="text-gray-500 hover:text-gray-700">
+            <i class="bi bi-x-lg"></i>
+        </a>
+    </div>
+
+    <form method="post" enctype="multipart/form-data" class="bg-white rounded-lg shadow-sm p-6">
+        {% csrf_token %}
+        <div class="space-y-6">
+            <div>
+                <label for="{{ form.name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                    {{ form.name.label }}
+                </label>
+                {{ form.name }}
+            </div>
+
+            <div>
+                <label for="{{ form.head_department.id_for_label }}"
+                       class="block text-sm font-medium text-gray-700 mb-2">
+                    {{ form.head_department.label }}
+                </label>
+                {{ form.head_department }}
+            </div>
+
+            <div>
+                <label for="{{ form.status.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                    {{ form.status.label }}
+                </label>
+                {{ form.status }}
+            </div>
+
+            <div>
+                <label for="{{ form.description.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                    {{ form.description.label }}
+                </label>
+                {{ form.description }}
+            </div>
+
+            <div>
+                <label for="{{ form.location.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                    {{ form.location.label }}
+                </label>
+                {{ form.location }}
+            </div>
+
+            <div>
+                <label for="{{ form.email.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                    {{ form.email.label }}
+                </label>
+                {{ form.email }}
+            </div>
+
+            <div>
+
+                <div class="flex items-center justify-end space-x-4">
+                    {% if department %}
+                    <a href="{{ department.get_detail_url }}" class="px-4 py-2 border rounded-lg hover:bg-gray-50">
+                        Cancel
+                    </a>
+                    <button type="submit"
+                            class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                        Update Department
+                    </button>
+                    {% else %}
+                    <a href="{% url 'departments:depart_list' %}" class="px-4 py-2 border rounded-lg hover:bg-gray-50">
+                        Cancel
+                    </a>
+                    <button type="submit"
+                            class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                        Save Department
+                    </button>
+                    {% endif %}
+                </div>
+            </div>
+    </form>
+</div>
+{% endblock %}
